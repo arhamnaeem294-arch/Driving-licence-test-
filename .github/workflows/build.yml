@@ -12,10 +12,10 @@ jobs:
       - name: Build APK
         run: |
           ls -la
-          GW=$(find. -name "gradlew" -type f | head -n 1)
+          GW=$(find . -name "gradlew" -type f | head -n 1)
           echo "Found gradlew at: $GW"
           chmod +x "$GW"
-          cd "$(dirname "$GW")" &&./gradlew assembleDebug
+          cd "$(dirname "$GW")" && ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: driving-test-apk
