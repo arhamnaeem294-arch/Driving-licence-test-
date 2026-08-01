@@ -9,10 +9,10 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - run: find. -name "gradlew" -type f
-      - run: find. -name "gradlew" -exec chmod +x {} \;
+      - run: find . -name "gradlew" -type f
+      - run: find . -name "gradlew" -exec chmod +x {} \;
       - run: |
-          GW=$(find. -name "gradlew" | head -n 1)
+          GW=$(find . -name "gradlew" | head -n 1)
           echo "Found: $GW"
           cd $(dirname $GW) &&./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
