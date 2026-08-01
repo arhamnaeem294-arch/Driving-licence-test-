@@ -5,22 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-java@v4
         with:
-          node-version: 20
-      - name: Build APK File
-        run: |
-          if [ -d "Driving-licence-test-" ]; then cd Driving-licence-test-; fi
-          npm install
-          npm run build || true
-          npm i @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init DT com.dt.app --web-dir=dist || true
-          npx cap add android
-          npx cap copy
-          cd android
-          chmod +x gradlew
-         ./gradlew assembleDebug
+          distribution: temurin
+          java-version: 17
+      - run: chmod +x gradlew &&./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: driving-test-apk
-          path: '**/app-debug.apk'
+          path: app/build/outputs/apk/debug/app-debug.apk
