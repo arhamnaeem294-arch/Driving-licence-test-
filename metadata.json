@@ -1,0 +1,8 @@
+{
+  "name": "Remix Pakistan Driving License Test Game",
+  "description": "پاکستان ڈرائیونg لائسنس ٹیسٹ گیم - 50 traffic signs \u0026 general knowledge questions test with score tracking, sound effects \u0026 share results.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
