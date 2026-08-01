@@ -5,25 +5,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
-      - run: npm install
-      - run: npm run build || true
-      - run: npm i @capacitor/core @capacitor/cli @capacitor/android || true
-      - run: npx cap init DT com.dt.app --web-dir=dist --npm-client=npm || true
-      - run: npx cap add android || true
-      - run: npx cap copy || true
-      - run: find. -name gradlew -exec chmod +x {} \;
-      - run: find. -name gradlew | head -n 1
-      - run: |
-          GW=$(find. -name gradlew | head -n 1)
-          echo "Found $GW"
-          cd $(dirname $GW) &&./gradlew assembleDebug
+      - name: Build APK
+        run: |
+          ls -la
+          GW=$(find. -name "gradlew" -type f | head -n 1)
+          echo "Found gradlew at: $GW"
+          chmod +x "$GW"
+          cd "$(dirname "$GW")" &&./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: driving-test-apk
