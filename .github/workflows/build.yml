@@ -8,15 +8,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Build APK
+      - name: Build APK File
         run: |
-          ls -la
-          if [ -f "Driving-licence-test-/package.json" ]; then cd Driving-licence-test-; echo "Found inner folder, cd inside"; fi
-          ls -la
+          if [ -d "Driving-licence-test-" ]; then cd Driving-licence-test-; fi
           npm install
-          npm run build || npm run dist || echo "build done"
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "Driving Test" com.driving.test --web-dir=dist --npm-client=npm || npx cap init "Driving Test" com.driving.test --web-dir=build --npm-client=npm || true
+          npm run build || true
+          npm i @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init DT com.dt.app --web-dir=dist || true
           npx cap add android
           npx cap copy
           cd android
@@ -25,4 +23,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: driving-test-apk
-          path: "**/app-debug.apk"
+          path: '**/app-debug.apk'
