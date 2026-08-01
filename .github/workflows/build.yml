@@ -12,14 +12,18 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - run: npm install --prefix Driving-licence-test- || npm install
-      - run: npm run build --prefix Driving-licence-test- || true
-      - run: npm i @capacitor/core @capacitor/cli @capacitor/android --prefix Driving-licence-test- || true
-      - run: cd Driving-licence-test- && npx cap init DT com.dt.app --web-dir=dist --npm-client=npm || true
-      - run: cd Driving-licence-test- && npx cap add android || true
-      - run: cd Driving-licence-test- && npx cap copy || true
-      - run: find Driving-licence-test- -name gradlew -exec chmod +x {} \;
-      - run: cd Driving-licence-test-/android &&./gradlew assembleDebug
+      - run: npm install
+      - run: npm run build || true
+      - run: npm i @capacitor/core @capacitor/cli @capacitor/android || true
+      - run: npx cap init DT com.dt.app --web-dir=dist --npm-client=npm || true
+      - run: npx cap add android || true
+      - run: npx cap copy || true
+      - run: find. -name gradlew -exec chmod +x {} \;
+      - run: find. -name gradlew | head -n 1
+      - run: |
+          GW=$(find. -name gradlew | head -n 1)
+          echo "Found $GW"
+          cd $(dirname $GW) &&./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: driving-test-apk
